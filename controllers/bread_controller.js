@@ -6,7 +6,12 @@ const Bread = require("../models/bread.js")
 
 // GET /breads - all breads [url.com/breads]
 breads.get("/", (req, res) => {
-    res.send(Bread);
+    // render /views/index.jsx, send it object with attribute "breads", with data from Bread 
+    res.render("index", 
+        {
+            breads: Bread
+        }
+    );
 })
 
 // GET specific bread - 1 bread [url.com/breads/:arrayIndex]

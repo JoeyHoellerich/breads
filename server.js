@@ -7,6 +7,14 @@ const express = require("express");
 // instantiate express
 const app = express();
 
+// MIDDLEWARE
+// set up 'view' setting to be the filepath to view - this is where we will render from
+app.set("views", __dirname + "/views");
+// set up the 'view engine' to be jsx
+app.set("view engine", "jsx");
+// create an engine in JSX
+app.engine("jsx", require("express-react-views").createEngine());
+
 // Home Page
 app.get("/", (req, res) => {
     res.send("This is our awesome app about breads!")
