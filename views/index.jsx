@@ -5,12 +5,10 @@ const React = require("react");
 const Default = require("./layouts/default");
 
 // pass in an object called breads 
-function Index ({breads}) {
+function Index ({breads, title}) {
     return (
         // return the output of the Default function - children is h2 -> Index Page
-        <Default>
-            {/* <h2>Index Page</h2>
-            <p>I have {breads[0].name} bread!</p> */}
+        <Default title = {title}>
             {/* create a new unordered list */}
             <ul>
                 {

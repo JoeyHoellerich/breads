@@ -9,15 +9,23 @@ breads.get("/", (req, res) => {
     // render /views/index.jsx, send it object with attribute "breads", with data from Bread 
     res.render("index", 
         {
-            breads: Bread
+            breads: Bread,
+            title: "Index Page"
         }
     );
 })
 
 // GET specific bread - 1 bread [url.com/breads/:arrayIndex]
 breads.get("/:arrayIndex", (req, res) => {
-    // whatever the number at the end of the url, get that array index from data and display it
-    res.send(Bread[req.params.arrayIndex]);
+    // rednder the show page for the specific bread number
+    if (Bread[req.params.arrayIndex]){
+        res.render("show", {
+            bread: Bread[req.params.arrayIndex]
+        })
+    }
+    else {
+        res.send("404")
+    }
 })
 
 // export module

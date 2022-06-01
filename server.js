@@ -8,6 +8,7 @@ const express = require("express");
 const app = express();
 
 // MIDDLEWARE
+app.use(express.static("public"))
 // set up 'view' setting to be the filepath to view - this is where we will render from
 app.set("views", __dirname + "/views");
 // set up the 'view engine' to be jsx
@@ -24,6 +25,11 @@ app.get("/", (req, res) => {
 const breadController = require("./controllers/bread_controller.js")
 // use bread controller under /breads
 app.use("/breads", breadController);
+
+// error 404
+app.get("*", (req, res) => {
+    res.send("404");
+})
 
 // start app and listen
 app.listen(PORT, (req, res) => {
