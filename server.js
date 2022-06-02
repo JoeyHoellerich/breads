@@ -15,6 +15,7 @@ app.set("views", __dirname + "/views");
 app.set("view engine", "jsx");
 // create an engine in JSX
 app.engine("jsx", require("express-react-views").createEngine());
+app.use(express.urlencoded({extended: true}));
 
 // Home Page
 app.get("/", (req, res) => {
