@@ -15,6 +15,8 @@ app.set("views", __dirname + "/views");
 app.set("view engine", "jsx");
 // create an engine in JSX
 app.engine("jsx", require("express-react-views").createEngine());
+// when you post data to server its encoded, and it changes data to ASCII values, loses JSON braces
+// any data coming in on a post is going to be encoded this way, and it tells the server to reformat the data so your req.body is back in JSON data
 app.use(express.urlencoded({extended: true}));
 
 // Home Page
