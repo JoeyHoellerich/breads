@@ -6,6 +6,8 @@ const PORT = process.env.PORT;
 const express = require("express");
 // instantiate express
 const app = express();
+// use override to override POST request and allow to do a DELETE request
+const methodOverride = require("method-override");
 
 // MIDDLEWARE
 app.use(express.static("public"))
@@ -18,6 +20,8 @@ app.engine("jsx", require("express-react-views").createEngine());
 // when you post data to server its encoded, and it changes data to ASCII values, loses JSON braces
 // any data coming in on a post is going to be encoded this way, and it tells the server to reformat the data so your req.body is back in JSON data
 app.use(express.urlencoded({extended: true}));
+// use override to override POST request and allow to do a DELETE request
+app.use(methodOverride("_method"));
 
 // Home Page
 app.get("/", (req, res) => {

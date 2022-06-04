@@ -5,7 +5,7 @@ const React = require("react");
 const Default = require("./layouts/default.jsx");
 
 // create function to show some bread, data passed in will be an object - we name bread
-function Show({bread}) {
+function Show({bread, index}) {
     console.log(bread.name)
         return (
             <Default>
@@ -23,6 +23,11 @@ function Show({bread}) {
                 </p>
                 <img src = {bread.image} alt = {bread.name}></img>
                 <li> <a href = "/breads">Go Home</a></li>
+                
+                <form action={`/breads/${index}?_method=DELETE`} method="POST">
+                    <input type='submit' value="DELETE"/>
+                </form> 
+
             </Default>
         )
 } 
