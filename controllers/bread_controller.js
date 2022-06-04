@@ -20,6 +20,14 @@ breads.get("/new", (req, res) => {
     res.render("new");
 })
 
+// EDIT
+breads.get('/:indexArray/edit', (req, res) => {
+    res.render('edit', {
+      bread: Bread[req.params.indexArray],
+      index: req.params.indexArray
+    })
+})
+
 // GET specific bread - 1 bread [url.com/breads/:arrayIndex]
 breads.get("/:arrayIndex", (req, res) => {
     // rednder the show page for the specific bread number
@@ -46,14 +54,6 @@ breads.post('/', (req, res) => {
     }
     Bread.push(req.body)
     res.redirect('/breads')
-})
-
-// EDIT
-breads.get('/:indexArray/edit', (req, res) => {
-    res.render('edit', {
-      bread: Bread[req.params.indexArray],
-      index: req.params.indexArray
-    })
 })
 
 
