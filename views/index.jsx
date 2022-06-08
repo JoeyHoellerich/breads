@@ -20,7 +20,8 @@ function Index ({breads, title}) {
                             <li key = {index}>
                                 {/* inside the list element, put in the bread name */}
                                 {/* href sends the browser to the page with just the single bread on it */}
-                                <a href ={`/breads/${index}`}>
+                                {/* bread.id is the id associated with each object in the bread database */}
+                                <a href ={`/breads/${bread.id}`}>
                                     {bread.name}
                                 </a>  
                             </li>

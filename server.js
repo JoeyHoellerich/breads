@@ -10,6 +10,17 @@ const app = express();
 const methodOverride = require("method-override");
 
 // MIDDLEWARE
+
+// Mongoose
+// declare mongoose - communicates with MongoDB to move data around 
+const mongoose = require("mongoose");
+// connect to mongoose
+// tell it where to connect (url), create a new Url Parse3r, and use Unified Topology
+mongoose.connect(process.env.MONGO_URI, {useNewUrlParser: true, useUnifiedTopology: true},
+    // run a function when you connect - type to console
+    () => {console.log("connected to mongo: ", process.env.MONGO_URI)}
+)
+// set up location where we will store public files (CSS, images, etc)
 app.use(express.static("public"))
 // set up 'view' setting to be the filepath to view - this is where we will render from
 app.set("views", __dirname + "/views");
