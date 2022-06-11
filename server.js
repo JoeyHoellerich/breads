@@ -39,10 +39,15 @@ app.get("/", (req, res) => {
     res.send("This is our awesome app about breads!")
 })
 
+// seed data controller 
+const dataController = require("./controllers/data_controller.js")
+app.use("/breads/data", dataController)
+
 // breads contoller
 const breadController = require("./controllers/bread_controller.js")
 // use bread controller under /breads
 app.use("/breads", breadController);
+
 
 // error 404
 app.get("*", (req, res) => {
