@@ -13,11 +13,11 @@ function Index ({breads, title}) {
             <ul>
                 {
                     // map through the passed in bread object array
-                    breads.map((bread, index) => {
+                    breads.map((bread) => {
                         // for each item in the array, return a list element
                         // each list element will have a key (unique identifier) based on where it is located in the array
                         return (
-                            <li key = {index}>
+                            <li key = {bread.id}>
                                 {/* inside the list element, put in the bread name */}
                                 {/* href sends the browser to the page with just the single bread on it */}
                                 {/* bread.id is the id associated with each object in the bread database */}

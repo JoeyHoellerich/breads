@@ -4,29 +4,6 @@ const breads = require("express").Router();
 // INDEX - JSON data with all bread info
 const Bread = require("../models/bread.js");
 
-const seedData = [
-  {
-    name: 'Rye',
-    hasGluten: true,
-    image: 'https://images.unsplash.com/photo-1595535873420-a599195b3f4a?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80',
-  },
-  {
-    name: 'French',
-    hasGluten: true,
-    image: 'https://images.unsplash.com/photo-1534620808146-d33bb39128b2?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=634&q=80',
-  },
-  {
-    name: 'Gluten Free',
-    hasGluten: false,
-    image: 'https://images.unsplash.com/photo-1546538490-0fe0a8eba4e6?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=1050&q=80',
-  },
-  {
-    name: 'Pumpernickel',
-    hasGluten: true,
-    image: 'https://images.unsplash.com/photo-1586444248902-2f64eddc13df?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=1050&q=80',
-  }
-];
-
 
 // GET /breads - all breads [url.com/breads]
 breads.get("/", (req, res) => {
@@ -45,14 +22,6 @@ breads.get("/", (req, res) => {
 // NEW
 breads.get("/new", (req, res) => {
   res.render("new");
-})
-
-// SEED Data
-breads.get("/data/seed", (req, res) => {
-  Bread.insertMany(seedData)
-    .then(createdBreads => {
-      res.redirect("/breads")
-    })
 })
 
 // EDIT
@@ -75,7 +44,7 @@ breads.get("/:arrayIndex", (req, res) => {
       })
     })
     .catch(err => {
-      res.send("404")
+      res.send(err)
     })
 })
 
@@ -93,7 +62,12 @@ breads.post('/', (req, res) => {
     }
     // instead of pushing the created data to an array, instead create it as a new document in DB
     Bread.create(req.body)
-    res.redirect('/breads')
+      .then(newBread => {
+        res.redirect('/breads')
+      })
+      .catch(err => {
+        throw "BAD DATA";
+      })
 })
 
 
@@ -104,10 +78,14 @@ breads.put('/:id', (req, res) => {
     } else {
       req.body.hasGluten = false
     }
-    Bread.findByIdAndUpdate(req.params.id, req.body, {new: true})
+    Bread.findByIdAndUpdate(req.params.id, req.body, {new: true, runValidators: true})
       .then(updatedBread => {
         console.log(updatedBread)
+        // if (updatedBread)
         res.redirect(`/breads/${req.params.id}`)
+      })
+      .catch(err => {
+        throw "BAD DATA"
       })
 })
   
