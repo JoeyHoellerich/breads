@@ -44,7 +44,7 @@ breads.get("/:arrayIndex", (req, res) => {
       })
     })
     .catch(err => {
-      res.send(err)
+      res.render("error404")
     })
 })
 
@@ -66,7 +66,7 @@ breads.post('/', (req, res) => {
         res.redirect('/breads')
       })
       .catch(err => {
-        res.redirect(`/breads`)
+        res.render("error404")
         console.log(err);
       })
 })
@@ -86,7 +86,7 @@ breads.put('/:id', (req, res) => {
         res.redirect(`/breads/${req.params.id}`)
       })
       .catch(err => {
-        res.redirect(`/breads/${req.params.id}`)
+        res.render("error404");
         console.log(err)
       })
 })
