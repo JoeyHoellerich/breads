@@ -66,7 +66,8 @@ breads.post('/', (req, res) => {
         res.redirect('/breads')
       })
       .catch(err => {
-        throw "BAD DATA";
+        res.redirect(`/breads`)
+        console.log(err);
       })
 })
 
@@ -85,7 +86,8 @@ breads.put('/:id', (req, res) => {
         res.redirect(`/breads/${req.params.id}`)
       })
       .catch(err => {
-        throw "BAD DATA"
+        res.redirect(`/breads/${req.params.id}`)
+        console.log(err)
       })
 })
   
