@@ -48,6 +48,10 @@ const breadController = require("./controllers/bread_controller.js")
 // use bread controller under /breads
 app.use("/breads", breadController);
 
+// baker controller
+const bakerController = require("./controllers/bakers_controller.js");
+app.use("/bakers", bakerController);
+
 
 // error 404
 app.get("*", (req, res) => {

@@ -3,6 +3,7 @@ const breads = require("express").Router();
 
 // INDEX - JSON data with all bread info
 const Bread = require("../models/bread.js");
+const Baker = require("../models/baker.js");
 
 
 // GET /breads - all breads [url.com/breads]
@@ -21,23 +22,34 @@ breads.get("/", (req, res) => {
 
 // NEW
 breads.get("/new", (req, res) => {
-  res.render("new");
-})
-
-// EDIT
-breads.get('/:id/edit', (req, res) => {
-  Bread.findById(req.params.id) 
-    .then(foundBread => { 
-      res.render('edit', {
-        bread: foundBread 
+  Baker.find()
+    .then(foundBakers => {
+      res.render("new", {
+        bakers: foundBakers
       })
     })
 })
 
+// EDIT
+breads.get('/:id/edit', (req, res) => {
+  Baker.find()
+    .then(foundBakers => {
+      Bread.findById(req.params.id)
+        .then(foundBread => {
+          res.render("edit", {
+            bread: foundBread,
+            bakers: foundBakers
+          })
+        })
+    })
+})
+
 // GET specific bread - 1 bread [url.com/breads/:arrayIndex]
-breads.get("/:arrayIndex", (req, res) => {
+breads.get("/:id", (req, res) => {
   // look in database and find the bread with the corresponding arrayIndex
-  Bread.findById(req.params.arrayIndex)
+  Bread.findById(req.params.id)
+  // get the full object for "baker" not just the id
+    .populate("baker")
     .then(foundBread => {
       res.render("show", {
         bread: foundBread
