@@ -1,6 +1,9 @@
 // use mongoose to create model
 const mongoose = require("mongoose");
 
+// get the Breads model for use with the virtual 
+const Bread = require("./bread");
+
 // pull the schema class from mongoose package
 const { Schema } = mongoose 
 
@@ -19,7 +22,18 @@ const bakerSchema = new Schema({
     bio: {
         type: String
     }
+}, {toJSON: {virtuals: true}})
+
+// Virtuals
+// the virtual field we are adding will be called "breads"
+// we want to reference the "Bread" collection
+// use the Baker's id to see which breads have that id listed under the field 'baker'
+bakerSchema.virtual("breads", {
+    ref: "Bread",
+    localField: "_id",
+    foreignField: "baker"
 })
+
 
 // model the schema, create a new collection in MongoDB for bakers
 const Baker = mongoose.model("Baker", bakerSchema);
