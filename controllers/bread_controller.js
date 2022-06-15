@@ -7,19 +7,17 @@ const Baker = require("../models/baker.js");
 
 
 // GET /breads - all breads [url.com/breads]
-breads.get("/", (req, res) => {
-  Baker.find()
-    .then(foundBakers => {
-      Bread.find()
-        .then(foundBreads => {
-          res.render("index", {
-            breads: foundBreads,
-            bakers: foundBakers,
-            title: "Index Page"
-          })
-        })
-    })
+breads.get('/', async (req, res) => {
+  // use .lean to only get the JSON of the items, instead of the whole document (saves time)
+  const foundBakers = await Baker.find().lean()
+  const foundBreads = await Bread.find().limit(5).lean()
+  res.render('index', {
+    breads: foundBreads,
+    bakers: foundBakers,
+    title: 'Index Page'
+  })
 })
+
 
 // NEW
 breads.get("/new", (req, res) => {

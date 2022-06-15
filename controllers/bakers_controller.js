@@ -24,15 +24,21 @@ baker.get("/", (req, res) => {
         })
 })
 
-baker.get("/:id", (req,res) => {
+// show 
+baker.get('/:id', (req, res) => {
     Baker.findById(req.params.id)
-        .populate("breads")
+    // how many breads will be populated into the baker's page
+        .populate({
+            path: 'breads',
+            options: { limit: 2 }
+        })
         .then(foundBaker => {
-            res.render("bakerShow", {
+            res.render('bakerShow', {
                 baker: foundBaker
             })
         })
 })
+
 
 // delete
 baker.delete('/:id', (req, res) => {

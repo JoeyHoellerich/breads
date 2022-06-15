@@ -15,8 +15,9 @@ function Index ({breads, bakers, title}) {
                 {
                     bakers.map(baker => {
                         return(
-                        <li key={baker.id}>
-                            <a href={`/bakers/${baker.id}`}>{baker.name}</a>
+                            // use ._id when dealing with a pure JSON object, you can use either when dealing with a non .lean() record
+                        <li key = {baker._id}>
+                            <a href={`/bakers/${baker._id}`}>{baker.name}</a>
                         </li>
                         )
                     })
